@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    /* 基本选项: */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "verbatimModuleSyntax": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    /* 严格 */
+    "strict": false,
+    "noUncheckedIndexedAccess": true,
+    /* 如果使用 TypeScript 进行转译： */
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    /* 如果不使用 TypeScript 进行转译: */
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "noEmit": true,
+    /* 如果你的代码在 DOM 中运行: */
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable"
+    ],
+    /* 如果你的代码不在 DOM 中运行: */
+    "lib": [
+      "es2022"
+    ],
+    /* 如果你正在构建一个库: */
+    "declaration": true,
+    /* 如果您正在 monorepo 中构建库: */
+    "composite": true,
+    "sourceMap": true,
+    "declarationMap": true
+  },
+  "include": [
+    "vite.config.ts"
+  ]
+}
