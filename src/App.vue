@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { ArrayList } from './DataStructure/linkedList/index'
+import { SignleLinkedList } from './DataStructure/linkedList/index'
 
-let arr = new ArrayList<number>()
+let arr = new SignleLinkedList<number>()
 
-for (let i = 0; i < 11; i++) {
+for (let i = 0; i < 3; i++) {
   arr.add(i)
 }
-arr.remove(0)
-arr.remove(1)
-arr.remove(2)
-arr.remove(3)
-arr.remove(4)
-arr.remove(5)
+
+console.log(arr.indexOf(1))
 
 arr.toString()
 
