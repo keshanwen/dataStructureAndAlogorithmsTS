@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { SignleLinkedList } from './DataStructure/linkedList/index'
+import { SingleCircleLinkedList } from './DataStructure/linkedList/index'
 
-let arr = new SignleLinkedList<number>()
+let arr = new SingleCircleLinkedList<number>()
 
 for (let i = 0; i < 3; i++) {
   arr.add(i)
 }
 
-console.log(arr.indexOf(1))
+console.log(arr.indexOf(2))
 
 arr.toString()
 
