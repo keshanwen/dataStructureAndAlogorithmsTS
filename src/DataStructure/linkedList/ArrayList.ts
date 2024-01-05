@@ -19,6 +19,11 @@ export class ArrayList<E> extends AbstractList<E> {
       this.elements[i] = null;
     }
     this._size = 0;
+
+    // 缩容
+    if (this.elements !== null && this.elements.length > this.DEFAULT_CAPACITY) {
+      this.elements = new Array(this.DEFAULT_CAPACITY);
+    }
   }
 
   /**
@@ -83,6 +88,8 @@ export class ArrayList<E> extends AbstractList<E> {
       this.elements[i - 1] = this.elements[i];
     }
     this.elements[--this._size] = null;
+
+    this.trim()
     return old;
   }
 
@@ -122,6 +129,21 @@ export class ArrayList<E> extends AbstractList<E> {
     this.elements = newElements;
 
     console.log(oldCapacity + '扩容为' + newCapacity);
+  }
+
+  private trim() {
+    let oldCapacity = this.elements.length
+    let newCapacity = oldCapacity >> 1
+    if (this._size > (newCapacity) || oldCapacity <= this.DEFAULT_CAPACITY) return
+
+    // 剩余空间还有很多
+    let newElements: E[] = new Array(newCapacity)
+    for (let i = 0; i < this._size;i++) {
+      newElements[i] = this.elements[i]
+    }
+
+    this.elements = newElements
+    console.log(oldCapacity + '缩容为' + newCapacity)
   }
 
   toString() {
