@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { SingleCircleLinkedList } from './DataStructure/linkedList/index'
+import { CircleLinkedList } from './DataStructure/linkedList/index'
 
-let arr = new SingleCircleLinkedList<number>()
+let arr = new CircleLinkedList<number>()
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 4; i++) {
   arr.add(i)
 }
+arr.reset()
+console.log(arr.next())
+console.log(arr.next())
+console.log(arr.next())
+console.log(arr.next())
+console.log(arr.next())
 
-console.log(arr.indexOf(2))
-
-arr.toString()
+// arr.toString()
 
 </script>
 
