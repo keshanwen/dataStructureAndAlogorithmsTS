@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import { CircleLinkedList } from './DataStructure/linkedList/index'
+import { Stack } from './DataStructure/stack/index'
 
-let arr = new CircleLinkedList<number>()
+let arr = new Stack<number>()
 
 for (let i = 0; i < 4; i++) {
-  arr.add(i)
+  arr.push(i)
 }
-arr.reset()
-console.log(arr.next())
-console.log(arr.next())
-console.log(arr.next())
-console.log(arr.next())
-console.log(arr.next())
-
-// arr.toString()
 
 </script>
 
