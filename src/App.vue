@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import { CircleDeque } from './DataStructure/queue/index'
+import { BinarySearchTree } from './DataStructure/tree/index'
 
-let arr = new CircleDeque<number>()
+let tree = new BinarySearchTree<number>()
 
-for (let i = 0; i < 18; i++) {
- arr.enQueueFront(i)
-}
+// 10 8 12 11 20 6  9 100
+tree.add(10)
+tree.add(8)
+tree.add(12)
+tree.add(11)
+tree.add(20)
+tree.add(6)
+tree.add(9)
+tree.add(100)
 
-// console.log(arr.deQueueFront())
-// console.log(arr.deQueueFront())
-// console.log(arr.deQueueFront())
-// console.log(arr.deQueueFront())
-// console.log(arr.deQueueFront())
-// console.log(arr.getFront())
-// console.log(arr.rear())
-console.log(arr.deQueueRear())
-console.log(arr.deQueueRear())
-console.log(arr.deQueueRear())
+tree.remove(8)
+
+tree.toString()
+console.log(tree.contains(8))
 
 
-arr.toString()
+
+
+
 
 </script>
 
