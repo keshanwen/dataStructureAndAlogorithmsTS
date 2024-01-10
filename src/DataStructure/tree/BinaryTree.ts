@@ -1,5 +1,6 @@
 import { BinaryTreeInfo } from './BinaryTreeInfo';
 import { Queue } from '../queue/index';
+import { Stack } from '../stack';
 
 
 interface Visitor<E> {
@@ -82,6 +83,45 @@ export class BinaryTree<E> implements BinaryTreeInfo {
     this._preorder(node.right, visitor);
   }
 
+  preorder2(visitor: Visitor<E>): void {
+    if (!visitor || !this._root) return
+    let stack: Stack<Node<E>> = new Stack<Node<E>>()
+    stack.push(this._root)
+    while (!stack.isEmpty()) {
+      let node: Node<E> = stack.pop()
+      // 访问 node 节点
+      if (visitor.visit(node.element)) return
+      if (node.right) {
+        stack.push(node.right)
+      }
+
+      if (node.left) {
+        stack.push(node.left)
+      }
+    }
+  }
+
+  preorder3(visitor: Visitor<E>): void {
+    if (!visitor || !this._root) return;
+    let node: Node<E> = this._root
+    let stack: Stack<Node<E>> = new Stack<Node<E>>()
+    while (true) {
+      if (!node) {
+        // 访问 node 节点
+        if (visitor.visit(node.element)) return
+        // 将右子节点入栈
+        if (node.right) stack.push(node.right)
+        // 向左走
+        node = node.left
+      } else if (stack.isEmpty()) {
+        return
+      } else {
+        // 处理右边
+        node = stack.pop()
+      }
+    }
+  }
+
   inorder(visitor: Visitor<E>): void {
     if (!visitor) return;
     this._inorder(this._root, visitor);
@@ -96,6 +136,28 @@ export class BinaryTree<E> implements BinaryTreeInfo {
     this._inorder(node.right, visitor);
   }
 
+  inorder2(visitor: Visitor<E>): void {
+    if (!visitor || !this._root) return;
+    let node: Node<E> = this._root
+    let stack: Stack<Node<E>> = new Stack<Node<E>>()
+
+    while (true) {
+      if (node) {
+        stack.push(node)
+        // 向左走
+        node = node.left
+      } else if (stack.isEmpty()) {
+        return
+      } else {
+        node = stack.pop()
+        // 访问node 节点
+        if (visitor.visit(node.element)) return
+        // 让右节点进行中序遍历
+        node = node.right
+      }
+    }
+  }
+
   postorder(visitor: Visitor<E>): void {
     if (visitor == null) return;
     this._postorder(this._root, visitor);
@@ -108,6 +170,24 @@ export class BinaryTree<E> implements BinaryTreeInfo {
     this._postorder(node.right, visitor);
     if (visitor.stop) return;
     visitor.stop = visitor.visit(node.element);
+  }
+
+  postorder2(visitor: Visitor<E>): void {
+    if (!visitor || !this._root) return;
+    // 记录上一次弹出访问的节点
+    let prev: Node<E> = null
+    let stack: Stack<Node<E>> = new Stack<Node<E>>()
+    stack.push(this._root)
+    while (!stack.isEmpty()) {
+      let top: Node<E> = stack.top()
+      if (top.isLeaf() || (prev != null && prev.parent == top)) {
+        prev = stack.pop()
+        if (visitor.visit(prev.element)) return
+      } else {
+        if (top.right) stack.push(top.right)
+        if (top.left) stack.push(top.left)
+      }
+    }
   }
 
   levelOrder(visitor: Visitor<E>): void {

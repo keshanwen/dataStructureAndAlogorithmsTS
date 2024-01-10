@@ -14,9 +14,9 @@ tree.add(9)
 // tree.add(100)
 
 
-tree.toString()
+// tree.toString()
 
-console.log(tree.isComplete())
+
 
 
 
