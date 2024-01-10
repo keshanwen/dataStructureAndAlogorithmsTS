@@ -1,1 +1,1 @@
-export { BinarySearchTree } from './BinarySearchTree';
+export { BST } from './BST'

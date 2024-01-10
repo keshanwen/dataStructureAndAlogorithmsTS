@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { BinarySearchTree } from './DataStructure/tree/index'
+import { BST } from './DataStructure/tree/index'
 
-let tree = new BinarySearchTree<number>()
+let tree = new BST<number>()
 
 // 10 8 12 11 20 6  9 100
 tree.add(10)
@@ -11,12 +11,12 @@ tree.add(11)
 tree.add(20)
 tree.add(6)
 tree.add(9)
-tree.add(100)
+// tree.add(100)
 
-tree.remove(8)
 
 tree.toString()
-console.log(tree.contains(8))
+
+console.log(tree.isComplete())
 
 
 
