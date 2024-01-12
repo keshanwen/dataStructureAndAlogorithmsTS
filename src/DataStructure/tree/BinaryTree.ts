@@ -30,6 +30,24 @@ export class Node<E> {
   hasTwoChildren(): boolean {
     return this.left != null && this.right != null;
   }
+
+  isLeftChild(): boolean {
+    return this.parent && this.parent.left == this;
+  }
+
+  isRightChild(): boolean {
+    return this.parent && this.parent.right == this;
+  }
+
+  sibling(): Node<E> {
+    if (this.isLeftChild()) {
+      return this.parent.left;
+    }
+    if (this.isRightChild()) {
+      return this.parent.left;
+    }
+    return null;
+  }
 }
 
 export class BinaryTree<E> implements BinaryTreeInfo {
@@ -336,7 +354,9 @@ export class BinaryTree<E> implements BinaryTreeInfo {
       let curLen = len / Math.pow(2, level - 1) + 1;
       str +=
         '  '.repeat(curLen) +
-        `${node.element}-[${node.parent ? node.parent.element : null}]`;
+        `${node.element}-[${
+          node.parent ? (node.parent.left == node ? 'L' : 'R') : ''
+        } ${node.parent ? node.parent.element : null}]`;
 
       if (node.left) {
         queue.enQueue(node.left);
@@ -355,5 +375,9 @@ export class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     console.log(str);
+  }
+
+  protected createNode(element: E, parent: Node<E>): Node<E> {
+    return new Node<E>(element, parent)
   }
 }

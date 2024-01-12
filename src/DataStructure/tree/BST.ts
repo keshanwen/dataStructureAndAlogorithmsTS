@@ -1,6 +1,6 @@
 import { BinaryTree, Node } from './BinaryTree';
 
-interface Comparator<E> {
+export interface Comparator<E> {
   compare(e1: E, e2: E): number;
 }
 
@@ -33,8 +33,11 @@ export class BST<E> extends BinaryTree<E> {
 
     // 添加第一个节点
     if (!this._root) {
-      this._root = new Node<E>(element, null);
+      this._root = this.createNode(element, null)
       this._szie++;
+
+      // 新添加节点之后的处理
+      this.afterAdd(this._root)
       return;
     }
 
@@ -57,13 +60,16 @@ export class BST<E> extends BinaryTree<E> {
     } while (node);
 
     // 看看插入到父节点的哪个位置
-    let newNode: Node<E> = new Node<E>(element, parent);
+    let newNode: Node<E> = this.createNode(element, parent);
     if (cmp > 0) {
       parent.right = newNode;
     } else {
       parent.left = newNode;
     }
     this._szie++;
+
+    // 新添加节点之后的处理
+    this.afterAdd(newNode)
   }
 
   private node(element: E): Node<E> {
@@ -109,9 +115,15 @@ export class BST<E> extends BinaryTree<E> {
       } else {
         node.parent.right = replacement;
       }
+
+      // 删除节点之后的处理
+      this.afterRemove(node)
     } else if (node.parent == null) {
       // node 是叶子节点并且是根节点
       this._root = null;
+
+      // 删除节点之后的处理
+      this.afterRemove(node);
     } else {
       // node 是叶子节点， 但不是更节点
       if (node == node.parent.left) {
@@ -120,6 +132,9 @@ export class BST<E> extends BinaryTree<E> {
         // node = node.parent.right
         node.parent.right = null;
       }
+
+      // 删除节点之后的处理
+      this.afterRemove(node);
     }
   }
 
@@ -130,4 +145,16 @@ export class BST<E> extends BinaryTree<E> {
   contains(element: E): boolean {
     return this.node(element) != null;
   }
+
+  /**
+   * 添加node之后的调整
+   * @param node 新添加的节点
+   */
+  protected afterAdd(node: Node<E>): void {}
+
+  /**
+   * 删除node之后的调整
+   * @param node 被删除的节点
+   */
+  protected afterRemove(node: Node<E>): void {}
 }
