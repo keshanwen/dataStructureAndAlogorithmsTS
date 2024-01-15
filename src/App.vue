@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AVLTree } from './DataStructure/tree/index'
+import { RBTree } from './DataStructure/tree/index'
 
 
 /* class Person {
@@ -11,7 +11,7 @@ import { AVLTree } from './DataStructure/tree/index'
   }
 } */
 
-let tree = new AVLTree<number>()
+let tree = new RBTree<number>()
 
 
 tree.add(10)
@@ -21,18 +21,16 @@ tree.add(7)
 tree.add(6)
 tree.add(20)
 tree.add(1)
-
+tree.add(4)
+tree.remove(20)
+tree.remove(10)
 
 
 
 tree.toString()
 
-tree.levelOrder({
-  visit(element) {
-    console.log(element)
-      return false
-  },
-})
+
+
 
 
 
