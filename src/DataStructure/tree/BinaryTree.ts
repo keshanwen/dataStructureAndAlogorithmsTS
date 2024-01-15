@@ -41,7 +41,7 @@ export class Node<E> {
 
   sibling(): Node<E> {
     if (this.isLeftChild()) {
-      return this.parent.left;
+      return this.parent.right;
     }
     if (this.isRightChild()) {
       return this.parent.left;

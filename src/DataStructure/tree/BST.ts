@@ -5,7 +5,7 @@ export interface Comparator<E> {
 }
 
 export class BST<E> extends BinaryTree<E> {
-  private comparator: Comparator<E>;
+  comparator: Comparator<E>;
 
   constructor(comparator?: Comparator<E>) {
     super();

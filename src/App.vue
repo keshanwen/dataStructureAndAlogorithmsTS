@@ -27,8 +27,12 @@ tree.add(1)
 
 tree.toString()
 
-// console.log(tree.height())
-console.log(tree.root())
+tree.levelOrder({
+  visit(element) {
+    console.log(element)
+      return false
+  },
+})
 
 
 
