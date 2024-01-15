@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RBTree } from './DataStructure/tree/index'
+import { TreeSet } from './DataStructure/set/index'
 
 
 /* class Person {
@@ -11,25 +11,35 @@ import { RBTree } from './DataStructure/tree/index'
   }
 } */
 
-let tree = new RBTree<number>()
+let set = new TreeSet<number>()
 
+set.add(1)
+set.add(1)
+set.add(2)
+set.add(2)
+set.add(3)
+set.add(3)
+set.add(3)
+set.add(3)
+set.add(3)
+set.add(3)
+for (let i = 0; i < 10; i++) {
+  set.add(i)
+}
 
-tree.add(10)
-tree.add(9)
-tree.add(8)
-tree.add(7)
-tree.add(6)
-tree.add(20)
-tree.add(1)
-tree.add(4)
-tree.remove(20)
-tree.remove(10)
+set.remove(3)
+console.log(set.size(), 'size')
+console.log(set.isEmpty(), 'isEmpty')
 
+console.log(set.contains(3), 'contains')
 
-
-tree.toString()
-
-
+set.traversal({
+  visit(element) {
+    console.log(element)
+      if (element == 6) return true
+      return false
+  },
+})
 
 
 
