@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TreeSet } from './DataStructure/set/index'
+import { TreeMap } from './DataStructure/map/index'
 
 
 /* class Person {
@@ -11,33 +11,34 @@ import { TreeSet } from './DataStructure/set/index'
   }
 } */
 
-let set = new TreeSet<number>()
+const map = new TreeMap<number, string>()
 
-set.add(1)
-set.add(1)
-set.add(2)
-set.add(2)
-set.add(3)
-set.add(3)
-set.add(3)
-set.add(3)
-set.add(3)
-set.add(3)
-for (let i = 0; i < 10; i++) {
-  set.add(i)
-}
+map.put(100, '100')
+map.put(1,'aaaa')
+map.put(2, 'bb')
+map.put(3, 'c')
+map.put(1, '1')
+// map.put(2, '2')
+map.put(3, '3')
 
-set.remove(3)
-console.log(set.size(), 'size')
-console.log(set.isEmpty(), 'isEmpty')
+// console.log(map.remove(3))
+console.log(map.size(), 'size~~~~')
+console.log(map.isEmpty())
+console.log(map.containsKey(3))
+console.log(map.containsValue('bb'))
 
-console.log(set.contains(3), 'contains')
 
-set.traversal({
-  visit(element) {
-    console.log(element)
-      if (element == 6) return true
-      return false
+
+map.toString()
+
+map.traversal({
+  visit(key, value) {
+    console.log(key, value, '!!!!')
+    if (key == 3) {
+      console.log('key~~~~~')
+      return true
+    }
+    return false
   },
 })
 
