@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BinaryHeap } from './DataStructure/heap/index'
+import { PriorityQueue } from './DataStructure/queue/index'
 
 class Person {
   constructor(public name: string, public age: number) {
@@ -7,24 +7,23 @@ class Person {
   }
 }
 
-
-
-const heap = new BinaryHeap<Person>({
-  compare(e1,e2) {
-    return  e1.age - e2.age
-  }
+const queue = new PriorityQueue<Person>({
+  compare(e1, e2) {
+      return e1.age - e2.age
+  },
 })
 
+
 for (let i = 6; i >= 0; i--) {
-  heap.add(new Person(`${i}`,i))
+  queue.enQueue(new Person(`${i}`,i))
 }
 
-console.log(heap.remove())
-console.log(heap.remove())
-console.log(heap.remove())
-console.log(heap.remove())
-console.log(heap.remove())
-console.log(heap.remove())
+console.log(queue.front())
+
+
+
+
+
 
 </script>
 
