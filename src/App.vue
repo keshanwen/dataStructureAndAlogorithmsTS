@@ -1,55 +1,12 @@
 <script setup lang="ts">
-import { TreeMap } from './DataStructure/map/index'
+import { BinaryHeap } from './DataStructure/heap/index'
 
+const heap = new BinaryHeap<number>([2, 10, 8, 100, 6, 4, 12])
 
-/* class Person {
-  age: number;
-  name: string
-  constructor(age: number, name: string) {
-    this.age = age
-    this.name = name
-  }
-} */
+heap.add(200)
+heap.replace(140)
 
-const map = new TreeMap<number, string>()
-
-map.put(100, '100')
-map.put(1,'aaaa')
-map.put(2, 'bb')
-map.put(3, 'c')
-map.put(1, '1')
-// map.put(2, '2')
-map.put(3, '3')
-
-// console.log(map.remove(3))
-console.log(map.size(), 'size~~~~')
-console.log(map.isEmpty())
-console.log(map.containsKey(3))
-console.log(map.containsValue('bb'))
-
-
-
-map.toString()
-
-map.traversal({
-  visit(key, value) {
-    console.log(key, value, '!!!!')
-    if (key == 3) {
-      console.log('key~~~~~')
-      return true
-    }
-    return false
-  },
-})
-
-
-
-
-
-
-
-
-
+console.log(heap.get())
 
 </script>
 
