@@ -8,6 +8,7 @@ export class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
   private DEFAULT_CAPACITY: number = 10;
 
   constructor(elements?: E[], comparator?: Comparator<E>) {
+    if (arguments.length === 1 && !Array.isArray(elements)) comparator = elements
     super(comparator);
 
     if (arguments.length === 2 || (arguments.length === 1 && Array.isArray(elements))) {

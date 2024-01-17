@@ -1,12 +1,30 @@
 <script setup lang="ts">
 import { BinaryHeap } from './DataStructure/heap/index'
 
-const heap = new BinaryHeap<number>([2, 10, 8, 100, 6, 4, 12])
+class Person {
+  constructor(public name: string, public age: number) {
 
-heap.add(200)
-heap.replace(140)
+  }
+}
 
-console.log(heap.get())
+
+
+const heap = new BinaryHeap<Person>({
+  compare(e1,e2) {
+    return  e1.age - e2.age
+  }
+})
+
+for (let i = 6; i >= 0; i--) {
+  heap.add(new Person(`${i}`,i))
+}
+
+console.log(heap.remove())
+console.log(heap.remove())
+console.log(heap.remove())
+console.log(heap.remove())
+console.log(heap.remove())
+console.log(heap.remove())
 
 </script>
 
