@@ -1,24 +1,30 @@
 <script setup lang="ts">
-import { PriorityQueue } from './DataStructure/queue/index'
+import { BubbleSort, BubbleSort2, BubbleSort3 } from './Algorithm/sort/BubbleSort'
+
 
 class Person {
-  constructor(public name: string, public age: number) {
-
+  name: string
+  age: number
+  constructor(name: string, age: number) {
+    this.name = name
+    this.age = age
   }
 }
 
-const queue = new PriorityQueue<Person>({
-  compare(e1, e2) {
-      return e1.age - e2.age
-  },
-})
+let arr = [10, 5, 6, 7, 8, 4, 3, 5, 2, 1, 9]
+let arr2 = [10, 5, 6, 7, 8, 4, 3, 5, 2, 1, 9]
+let arr3 = [10, 5, 6, 7, 8, 4, 3, 5, 2, 1, 9]
+// let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
-for (let i = 6; i >= 0; i--) {
-  queue.enQueue(new Person(`${i}`,i))
-}
+const sort = new BubbleSort<number>(arr)
+const sort2 = new BubbleSort2<number>(arr2)
+const sort3 = new BubbleSort3(arr3)
 
-console.log(queue.front())
+sort.toString()
+sort2.toString()
+sort3.toString()
 
 
 
