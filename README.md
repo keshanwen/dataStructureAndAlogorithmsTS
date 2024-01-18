@@ -1,3 +1,5 @@
+# [学习视频连接，恋上算法与数据结构，小码哥](https://ke.qq.com/course/package/26071) **本项目代码思路，全部来自小码哥。**
+
 # Vue 3 + TypeScript + Vite
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
