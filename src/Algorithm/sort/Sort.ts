@@ -24,8 +24,11 @@ export abstract class Sort<E> {
 
   protected abstract sort(): void;
 
-  compare(e1: number, e2: number): number {
+  compare(e1: number, e2: number, isValue?: boolean): number {
     this.cmpCount++
+    if (isValue) {
+      return e1 - e2
+    }
     if (this.comparator) {
       return this.comparator.compare(this.array[e1], this.array[e2]);
     }
