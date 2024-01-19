@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { QuickSort } from './Algorithm/sort/QuickSort'
+import { MergeSort2 } from './Algorithm/sort/MergeSort'
+
+let arr = []
 
 
-let arr = [1,2,3,4,5,6,7,8,9,11,20,23,12,13,14,15]
+for (let i = 100; i > 0; i--) {
+  arr.push(i)
+}
 
-const sort = new QuickSort<number>(arr)
+const sort = new MergeSort2<number>()
 
-sort.toString()
+
+console.log(sort.sort(arr))
+
+
 
 </script>
 
