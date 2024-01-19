@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { MergeSort2 } from './Algorithm/sort/MergeSort'
+import { HeapSort } from './Algorithm/sort/HeapSort'
 
-let arr = []
-
-
-for (let i = 100; i > 0; i--) {
-  arr.push(i)
-}
-
-const sort = new MergeSort2<number>()
+let arr = [3,467,78,,8,6,4,2,1,0]
 
 
-console.log(sort.sort(arr))
+const sort = new HeapSort<number>(arr)
+
+sort.toString()
 
 
 
