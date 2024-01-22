@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { HeapSort } from './Algorithm/sort/HeapSort'
+import { GenericUnionFind } from './Algorithm/union/index'
 
-let arr = [3,467,78,,8,6,4,2,1,0]
+const union = new GenericUnionFind<number>()
+
+union.makeSet(8)
+union.makeSet(24)
+union.makeSet(25)
+union.makeSet(26)
+
+union.union(8, 24)
+union.union(24, 25)
+union.union(25,26)
 
 
-const sort = new HeapSort<number>(arr)
-
-sort.toString()
-
-
+console.log(union.isSame(8, 26))
+console.log(union.find(26))
+console.log(union.find(25))
 
 </script>
 
