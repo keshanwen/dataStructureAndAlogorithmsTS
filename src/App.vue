@@ -1,21 +1,40 @@
 <script setup lang="ts">
-import { GenericUnionFind } from './Algorithm/union/index'
+import { ListGraph } from './Algorithm/grapg/ListGraph'
 
-const union = new GenericUnionFind<number>()
+const graph = new ListGraph()
 
-union.makeSet(8)
-union.makeSet(24)
-union.makeSet(25)
-union.makeSet(26)
+graph.addVertex("A")
+graph.addVertex("B")
+graph.addVertex("C")
+graph.addVertex("D")
+graph.addVertex("E")
+graph.addVertex("F")
+graph.addVertex("G")
+graph.addVertex("I")
+graph.addVertex("H")
 
-union.union(8, 24)
-union.union(24, 25)
-union.union(25,26)
+
+graph.addEdge("A", "B")
+graph.addEdge("A", "F")
+graph.addEdge("B", "C")
+graph.addEdge("B", "I")
+graph.addEdge("B", "G")
+graph.addEdge("C", "I")
+graph.addEdge("C", "D")
+graph.addEdge("D", "I")
+graph.addEdge("D", "G")
+graph.addEdge("D", "E")
+graph.addEdge("D", "H")
+graph.addEdge("E", "H")
+graph.addEdge("E", "F")
+graph.addEdge("F", "G")
+graph.addEdge("G", "H")
+
+graph.print()
+// console.log(graph.verticesSize())
+// console.log(graph.edgesSize())
 
 
-console.log(union.isSame(8, 26))
-console.log(union.find(26))
-console.log(union.find(25))
 
 </script>
 

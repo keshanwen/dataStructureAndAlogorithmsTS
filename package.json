@@ -9,6 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "hashcode": "^1.0.3",
+    "hashmap": "^2.4.0",
+    "hashset": "^0.0.6",
+    "lodash": "^4.17.21",
+    "path": "^0.12.7",
     "vue": "^3.3.11"
   },
   "devDependencies": {
