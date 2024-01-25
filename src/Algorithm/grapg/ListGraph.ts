@@ -254,4 +254,36 @@ export class ListGraph<V, E> extends Graph<V, E> {
       });
     }
   }
+
+  topologicalSort(): LinkedList<V> {
+    let list: LinkedList<V> = new LinkedList<V>()
+    let queue: Queue<Vertex<V, E>> = new Queue<Vertex<V, E>>()
+    let ins: Map<Vertex<V, E>, number> = new Map<Vertex<V, E>, number>();
+    // 初始化（将度为0 的节点都放入队列）
+    this.vertices.forEach((vertex: Vertex<V,E>,v: V) => {
+      let inNs: number = vertex.inEdges.size
+      if (inNs == 0) {
+        queue.enQueue(vertex)
+      } else {
+        ins.set(vertex,inNs)
+      }
+    })
+
+    while (!queue.isEmpty()) {
+      let vertex: Vertex<V, E> = queue.deQueue()
+      // 放入返回结果中
+      list.add(vertex.value)
+
+      for (let edge of vertex.outEdges) {
+        let toIn: number = ins.get(edge.to) - 1
+        if (toIn == 0) {
+          queue.enQueue(edge.to)
+        } else {
+          ins.set(edge.to, toIn)
+        }
+      }
+    }
+
+    return list
+  }
 }

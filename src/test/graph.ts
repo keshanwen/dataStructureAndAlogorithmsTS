@@ -15,6 +15,7 @@ graph.addVertex('H');
 graph.addEdge('A', 'B');
 graph.addEdge('A', 'F');
 graph.addEdge('B', 'C');
+graph.addEdge('C', 'A');
 graph.addEdge('B', 'I');
 graph.addEdge('B', 'G');
 graph.addEdge('C', 'I');
@@ -47,9 +48,9 @@ console.log(graph.edgesSize(), '边') */
 }) */
 
 
-graph.dfs('A', {
+/* graph.dfs('A', {
   visit(v) {
     console.log(v,'~~~~')
       return false
   },
-})
+}) */
