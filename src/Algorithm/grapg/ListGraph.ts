@@ -22,14 +22,18 @@ function cloneDeep(value: any) {
   return _.cloneDeep(value);
 }
 
+function isEqual(a: object,b: object):boolean {
+  return _.isEqual(a,b)
+}
+
 interface Comparator<E> {
   compare(e1: E, e2: E): number;
 }
 
 class Vertex<V, E> {
   value: V;
-  inEdges: HashSet<Edge<V, E>> = new HashSet<Edge<V, E>>();
-  outEdges: HashSet<Edge<V, E>> = new HashSet<Edge<V, E>>();
+  inEdges: Set<Edge<V, E>> = new Set<Edge<V, E>>();
+  outEdges: Set<Edge<V, E>> = new Set<Edge<V, E>>();
 
   constructor(value: V) {
     this.value = value;
@@ -79,9 +83,9 @@ class Edge<V, E> {
 }
 
 export class ListGraph<V, E> extends Graph<V, E> {
-  vertices: HashMap<V, Vertex<V, E>> = new HashMap<V, Vertex<V, E>>();
+  vertices: Map<V, Vertex<V, E>> = new Map<V, Vertex<V, E>>();
 
-  edges: HashSet<Edge<V, E>> = new HashSet<Edge<V, E>>();
+  edges: Set<Edge<V, E>> = new Set<Edge<V, E>>();
 
   edgeComparator: Comparator<Edge<V, E>> = {
     compare(e1: Edge<V, E>, e2: Edge<V, E>) {
@@ -98,47 +102,28 @@ export class ListGraph<V, E> extends Graph<V, E> {
 
   print(): void {
     console.log('[顶点]---------------');
-    /*     this.vertices.traversal({
-      visit(key: V, value: Vertex<V, E>) {
-        console.log(key);
-        console.log('out-------------');
-        console.log(value.outEdges);
-        console.log('in--------------');
-        console.log(value.inEdges);
-        return false;
-      },
-    }); */
-    this.vertices.forEach((value: Vertex<V, E>, key: V) => {
-      console.log(key);
-      console.log('out-------------');
-      console.log(value.outEdges.length);
-      console.log('in--------------');
-      console.log(value.inEdges);
-    });
-    console.log('[边]-----------------');
-    this.edges.forEach((edge: Edge<V, E>) => {
-      console.log(edge);
-    });
-  /*   this.edges.traversal({
-      visit(edge: Edge<V, E>) {
-        console.log(edge);
-        return false;
-      },
-    }); */
+    this.vertices.forEach((vertex: Vertex<V,E>,v: V) => {
+      console.log(v)
+      console.log('out~~~~~~~~~~~~~~~')
+      console.log(vertex.outEdges)
+      console.log('in~~~~~~~~~~~~~~~~')
+      console.log(vertex.inEdges)
+    })
+    console.log('[边]-----------------')
+    this.edges.forEach((edge: Edge<V,E>) => {
+      console.log(edge)
+    })
   }
 
   edgesSize(): number {
-    return this.edges.length;
+    return this.edges.size;
   }
 
   verticesSize(): number {
-    // return this.vertices.size();
     return this.vertices.size;
   }
 
   addVertex(v: V): void {
-    /*    if (this.vertices.containsKey(v)) return;
-    this.vertices.put(v, new Vertex(v)); */
     if (this.vertices.has(v)) return;
     this.vertices.set(v, new Vertex(v));
   }
@@ -147,22 +132,20 @@ export class ListGraph<V, E> extends Graph<V, E> {
     let fromVertex: Vertex<V, E> = this.vertices.get(from);
     if (!fromVertex) {
       fromVertex = new Vertex(from);
-      // this.vertices.put(from, fromVertex);
       this.vertices.set(from, fromVertex);
     }
 
     let toVertex: Vertex<V, E> = this.vertices.get(to);
     if (!toVertex) {
       toVertex = new Vertex(to);
-      // this.vertices.put(to, toVertex);
       this.vertices.set(to, toVertex);
     }
 
     let edge: Edge<V, E> = new Edge(fromVertex, toVertex);
     edge.weight = weight;
-    if (fromVertex.outEdges.remove(edge)) {
-      toVertex.inEdges.remove(edge);
-      this.edges.remove(edge);
+    if (fromVertex.outEdges.delete(edge)) {
+      toVertex.inEdges.delete(edge);
+      this.edges.delete(edge);
     }
 
     fromVertex.outEdges.add(edge);
@@ -177,51 +160,41 @@ export class ListGraph<V, E> extends Graph<V, E> {
     if (!toVertex) return;
 
     let edge: Edge<V, E> = new Edge(fromVertex, toVertex);
-    if (fromVertex.outEdges.remove(edge)) {
-      toVertex.inEdges.remove(edge);
-      this.edges.remove(edge);
+
+    for (let item of fromVertex.outEdges) {
+      if (isEqual(item, edge)) {
+        fromVertex.outEdges.delete(item)
+        toVertex.inEdges.delete(item)
+        this.edges.delete(item)
+        break;
+      }
     }
   }
 
   removeVertex(v: V): void {
-    let vertex: Vertex<V, E> = this.vertices.remove(v);
+    let vertex: Vertex<V, E> = this.vertices.get(v);
     if (!vertex) return;
+    this.vertices.delete(v)
 
-    let outEdges: HashSet<Edge<V, E>> = cloneDeep(vertex.outEdges);
+    // let outEdges: Set<Edge<V, E>> = cloneDeep(vertex.outEdges);
+    let outEdges: Set<Edge<V, E>> = vertex.outEdges;
 
     let _this = this;
     outEdges.forEach((edge: Edge<V, E>) => {
-       edge.to.inEdges.remove(edge);
+       edge.to.inEdges.delete(edge);
        // 将当前遍历到的元素 edge 从集合 vertex.outEdges 中删除掉
-       vertex.outEdges.remove(edge);
-       _this.edges.remove(edge);
+       vertex.outEdges.delete(edge);
+       _this.edges.delete(edge);
     });
-/*     outEdges.traversal({
-      visit(edge: Edge<V, E>) {
-        edge.to.inEdges.remove(edge);
-        // 将当前遍历到的元素 edge 从集合 vertex.outEdges 中删除掉
-        vertex.outEdges.remove(edge);
-        _this.edges.remove(edge);
-        return false;
-      },
-    }); */
 
-    let inEdges: HashSet<Edge<V, E>> = cloneDeep(vertex.inEdges);
+    // let inEdges: Set<Edge<V, E>> = cloneDeep(vertex.inEdges);
+    let inEdges: Set<Edge<V, E>> = vertex.inEdges;
     inEdges.forEach((edge: Edge<V, E>) => {
-        edge.from.outEdges.remove(edge);
+        edge.from.outEdges.delete(edge);
         // 将当前遍历到的元素 edge 从集合vertex.inEdges 中删除掉
-        vertex.inEdges.remove(edge);
-        _this.edges.remove(edge);
+        vertex.inEdges.delete(edge);
+        _this.edges.delete(edge);
     });
-   /*  inEdges.traversal({
-      visit(edge: Edge<V, E>) {
-        edge.from.outEdges.remove(edge);
-        // 将当前遍历到的元素 edge 从集合vertex.inEdges 中删除掉
-        vertex.inEdges.remove(edge);
-        _this.edges.remove(edge);
-        return false;
-      },
-    }); */
   }
 
   bfs(begin: V, visitor: VertexVisitor<V>): void {
@@ -229,7 +202,7 @@ export class ListGraph<V, E> extends Graph<V, E> {
     let beginVertex: Vertex<V, E> = this.vertices.get(begin);
     if (!beginVertex) return;
 
-    let visitedVertices: HashSet<Vertex<V, E>> = new HashSet<Vertex<V, E>>();
+    let visitedVertices: Set<Vertex<V, E>> = new Set<Vertex<V, E>>();
     let queue: Queue<Vertex<V, E>> = new Queue<Vertex<V, E>>();
     queue.enQueue(beginVertex);
     visitedVertices.add(beginVertex);
@@ -239,21 +212,11 @@ export class ListGraph<V, E> extends Graph<V, E> {
       if (visitor.visit(vertex.value)) return;
 
       vertex.outEdges.forEach((edge: Edge<V, E>) => {
-        if (!visitedVertices.contains(edge.to)) {
+        if (!visitedVertices.has(edge.to)) {
           queue.enQueue(edge.to);
           visitedVertices.add(edge.to);
         }
       });
-
-  /*     vertex.outEdges.traversal({
-        visit(edge: Edge<V, E>) {
-          if (!visitedVertices.contains(edge.to)) {
-            queue.enQueue(edge.to);
-            visitedVertices.add(edge.to);
-          }
-          return false;
-        },
-      }); */
     }
   }
 
@@ -262,7 +225,7 @@ export class ListGraph<V, E> extends Graph<V, E> {
     let beginVertex: Vertex<V, E> = this.vertices.get(begin);
     if (!beginVertex) return;
 
-    let visitedVertices: HashSet<Vertex<V, E>> = new HashSet<Vertex<V, E>>();
+    let visitedVertices: Set<Vertex<V, E>> = new Set<Vertex<V, E>>();
     let stack: Stack<Vertex<V, E>> = new Stack<Vertex<V, E>>();
 
     // 先访问起点
@@ -273,36 +236,22 @@ export class ListGraph<V, E> extends Graph<V, E> {
 
     while (!stack.isEmpty()) {
       if (breakDfs) return;
+      let forEachBreak: boolean = false
       let vertex: Vertex<V, E> = stack.pop();
 
       vertex.outEdges.forEach((edge: Edge<V, E>) => {
-         if (visitedVertices.contains(edge.to)) {
-           return false;
-         } else {
+         if (visitedVertices.has(edge.to)) {
+           // return false;
+         } else if (!forEachBreak) {
            stack.push(edge.from);
            stack.push(edge.to);
            visitedVertices.add(edge.to);
            if (visitor.visit(edge.to.value)) {
              breakDfs = true;
            }
-           return true;
+           forEachBreak = true
          }
       });
-      /* vertex.outEdges.traversal({
-        visit(edge: Edge<V, E>) {
-          if (visitedVertices.contains(edge.to)) {
-            return false;
-          } else {
-            stack.push(edge.from);
-            stack.push(edge.to);
-            visitedVertices.add(edge.to);
-            if (visitor.visit(edge.to.value)) {
-              breakDfs = true;
-            }
-            return true;
-          }
-        },
-      }); */
     }
   }
 }

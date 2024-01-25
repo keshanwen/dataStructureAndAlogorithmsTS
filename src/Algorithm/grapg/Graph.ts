@@ -97,7 +97,7 @@ export abstract class Graph<V, E> {
 
   abstract addVertex(v: V): void;
 
-  abstract addEdge(from: V, to: V, eight?: E): void;
+  abstract addEdge(from: V, to: V, weight?: E): void;
 
   abstract removeVertex(v: V): void;
 
@@ -107,9 +107,9 @@ export abstract class Graph<V, E> {
 
   abstract dfs(begin: V, Visitor: VertexVisitor<V>): void;
 
-  abstract mst(): HashSet<EdgeInfo<V, E>>;
+  abstract mst(): Set<EdgeInfo<V, E>>;
 
   abstract topologicalSort(): LinkedList<V>;
 
-  abstract shortestPath(begin: V): HashMap<V, HashMap<V, PathInfo<V, E>>>;
+  abstract shortestPath(begin: V): Map<V, PathInfo<V, E>>;
 }
