@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './test/graph'
+import './Algorithm/divideAndConquer/index'
 
 
 
