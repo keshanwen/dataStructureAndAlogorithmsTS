@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './Algorithm/divideAndConquer/index'
+import './Algorithm/urlParser/urlParse0'
 
 
 
