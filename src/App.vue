@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './Algorithm/urlParser/urlParse0'
+import './Algorithm/dynamicProgramming/index'
 
 
 
