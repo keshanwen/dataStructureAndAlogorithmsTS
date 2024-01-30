@@ -1,4 +1,4 @@
-import { ListGraph } from '../Algorithm/grapg/ListGraph';
+import { ListGraph } from '../Algorithm/graph/ListGraph';
 
 const graph = new ListGraph();
 
