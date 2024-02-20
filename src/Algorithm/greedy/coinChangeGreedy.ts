@@ -1,9 +1,6 @@
 /*  零钱兑换：贪心
     我们贪心地选择不大于且最接近它的硬币,对于某些硬币面值组合，贪心算法并不能找到最优解
 */
-
-const coins = [1, 5, 10, 20, 50, 100]
-const amt = 131
 function coinChangeGreedy(coins: number[], amt: number): number {
   // 假设 coins 数组有序
   let i = coins.length - 1;
@@ -22,8 +19,4 @@ function coinChangeGreedy(coins: number[], amt: number): number {
   return amt === 0 ? count : -1;
 }
 
-
-console.log('hello wrold')
-
-
-export { }
+console.log('hello wrold');

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './Algorithm/backtracking/index'
+import './Algorithm/greedy/index'
 
 
 
