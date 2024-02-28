@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './Algorithm/greedy/index'
+import './Algorithm/dynamicProgramming/index'
 
 
 
