@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './Algorithm/dynamicProgramming/index'
+import './Algorithm/TEST/无向图染色'
 
 
 
